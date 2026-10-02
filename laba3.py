@@ -1,7 +1,7 @@
 # Дані магазину
 products = {
-    "1": {"name": "Хліб",        "price": 25.50,  "stock": 10},
-    "2": {"name": "Молоко",      "price": 42.90,  "stock": 5},
+    "1": {"name": "Булочка з маком",        "price": 25.50,  "stock": 10},
+    "2": {"name": "Чай",      "price": 57.90,  "stock": 5},
     "3": {"name": "Яблука (кг)", "price": 38.75,  "stock": 8},
     "4": {"name": "Кава",        "price": 120.00, "stock": 3},
 }
@@ -13,10 +13,12 @@ cart = []
 format_price = lambda price: f"{price:.2f}грн"
 cart_total = lambda: sum(product["price"] for product in cart)
 
+
 def show_catalog():
     print("\n--- КАТАЛОГ ---")
     for product_id, product in products.items():
         print(f"{product_id}. {product['name']} - {format_price(product['price'])} (залишок: {product['stock']})")
+
 
 def show_cart():
     print("\n--- КОШИК ---")
@@ -26,6 +28,7 @@ def show_cart():
     for index, product in enumerate(cart, 1):
         print(f"{index}. {product['name']} - {format_price(product['price'])}")
     print(f"Разом: {format_price(cart_total())}")
+
 
 def add_to_cart():
     show_catalog()
@@ -37,6 +40,7 @@ def add_to_cart():
         print(f" {selected['name']} додано в кошик")
     else:
         print("Товару немає або він закінчився")
+
 
 def remove_from_cart():
     show_cart()
@@ -54,6 +58,7 @@ def remove_from_cart():
     except (ValueError, IndexError):
         print("Неправильний номер")
 
+
 def buy():
     show_cart()
     if not cart:
@@ -63,6 +68,7 @@ def buy():
         cart.clear()
         print("Дякуємо за покупку!")
 
+
 def admin_panel():
     if input("Пароль: ") != ADMIN_PASSWORD:
         print("Невірний пароль")
@@ -70,6 +76,7 @@ def admin_panel():
     print("\n--- ЗАЛИШКИ НА СКЛАДІ ---")
     for product in products.values():
         print(f"{product['name']}: {product['stock']} шт.")
+
 
 def menu():
     actions = {
@@ -89,6 +96,7 @@ def menu():
             break
         action = actions.get(choice, lambda: print("Немає такого пункту"))
         action()
+
 
 if __name__ == "__main__":
     menu()
